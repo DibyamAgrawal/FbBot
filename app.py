@@ -1,41 +1,13 @@
 import os
 import sys
 import json
-from github import Github
-import base64
+
 import requests
 from flask import Flask, request
 
 app = Flask(__name__)
 
 
-
-
-def push(msg):
-    g = Github("8a05ca4e24f5f756bc63d652ab672798327b44ad")
-    repo = g.get_user().get_repo("FbBot")
-    value = repo.get_file_contents('/test.txt')
-    user1 = value.content
-    str1 = base64.b64decode(user1).decode("utf-8")
-    update_msg=str1+"\n"+msg
-    repo.update_file("/test.txt", "init commit", update_msg,value.sha)
-    
-def pull():
-    g = Github("8a05ca4e24f5f756bc63d652ab672798327b44ad")
-    repo = g.get_user().get_repo("FbBot")
-    value = repo.get_file_contents('/test.txt')
-    user1 = value.content
-    str1 = base64.b64decode(user1).decode("utf-8")
-    repo.update_file("/test.txt", "init commit", "",value.sha)
-    return str1;
-
-
-
-
-
-def splitData(data):
-    return data[:data.index('_')],data[data.index('_')+1:]
-    
 @app.route('/', methods=['GET'])
 def verify():
     # when the endpoint is registered as a webhook, it must echo back
@@ -47,17 +19,7 @@ def verify():
 
     return "Hello world", 200
 
-@app.route('/data/<data>', methods=['GET'])
-def msgToUser(data):
-    user,msg = splitData(data)
-    send_message(user, msg)
-    
-@app.route('/check', methods=['GET'])
-def check():
-    return pull()
-    #check for txt file data and return
 
-    
 @app.route('/', methods=['POST'])
 def webhook():
 
@@ -76,10 +38,9 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
-                    ##################################################
-                    newMsg(sender_id,message_text)
-                    #send_message(sender_id, message_text)
-                    ##################################################
+
+                    send_message(sender_id, "got it, thanks!")
+
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
 
@@ -91,15 +52,6 @@ def webhook():
 
     return "ok", 200
 
-def newMsg(recipient_id, message_text):
-    #add to txt file
-    send_message(recipient_id, message_text)
-    push(recipient_id+"_"+message_text)
-    #file = open("test.txt", "a")
-    #file.write(message_text)
-    #file.close()
-    #with open("test.txt", "a") as myfile:
-    #   myfile.write(recipient_id + ":" +message_text + "\n")
 
 def send_message(recipient_id, message_text):
 
