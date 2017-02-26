@@ -50,8 +50,7 @@ def msgToUser(data):
     
 @app.route('/check/', methods=['GET'])
 def check():
-    list = {'data' : '1418324368241494_HI'}
-    return jsonify(results=list)
+    return pullMsg()
     
     
 @app.route('/', methods=['POST'])
