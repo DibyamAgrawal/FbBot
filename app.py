@@ -16,7 +16,8 @@ def pushMsg(msg):
     str1 = base64.b64decode(user1).decode("utf-8")
     update_msg=str1+"\n"+msg
     repo.update_file("/amdocs1.txt", "init commit", update_msg,value.sha)
-    
+
+@app.route('/check/', methods=['GET'])
 def pullMsg():
     #g = Github("8a05ca4e24f5f756bc63d652ab672798327b44ad")
     g = Github("agrawaldips14@gmail.com", "deepikA@9")
@@ -47,13 +48,6 @@ def msgToUser(data):
     user,msg = splitData(data)
     send_message(user, msg)
     
-@app.route('/check/', methods=['GET'])
-def check():
-    return pullMsg()
-    #check for txt file data and return
-
-
-
 @app.route('/', methods=['POST'])
 def webhook():
 
