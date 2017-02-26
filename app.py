@@ -7,7 +7,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-def push(msg):
+def pushMsg(msg):
     g = Github("8a05ca4e24f5f756bc63d652ab672798327b44ad")
     repo = g.get_user().get_repo("FbBot")
     value = repo.get_file_contents('/test.txt')
@@ -16,7 +16,7 @@ def push(msg):
     update_msg=str1+"\n"+msg
     repo.update_file("/test.txt", "init commit", update_msg,value.sha)
     
-def pull():
+def pullMsg():
     g = Github("8a05ca4e24f5f756bc63d652ab672798327b44ad")
     repo = g.get_user().get_repo("FbBot")
     value = repo.get_file_contents('/test.txt')
@@ -58,7 +58,7 @@ def webhook():
                     message_text = messaging_event["message"]["text"]  # the message's text
 
                     send_message(sender_id, message_text)
-                    push(message_text)
+                    pushMsg(message_text)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
