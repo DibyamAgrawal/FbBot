@@ -47,7 +47,7 @@ def msgToUser(data):
     user,msg = splitData(data)
     send_message(user, msg)
     
-@app.route('/check', methods=['GET'])
+@app.route('/check/', methods=['GET'])
 def check():
     return pullMsg()
     #check for txt file data and return
