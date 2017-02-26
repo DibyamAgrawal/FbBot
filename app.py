@@ -7,6 +7,24 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
+def push(msg):
+    g = Github("8a05ca4e24f5f756bc63d652ab672798327b44ad")
+    repo = g.get_user().get_repo("FbBot")
+    value = repo.get_file_contents('/test.txt')
+    user1 = value.content
+    str1 = base64.b64decode(user1).decode("utf-8")
+    update_msg=str1+"\n"+msg
+    repo.update_file("/test.txt", "init commit", update_msg,value.sha)
+    
+def pull():
+    g = Github("8a05ca4e24f5f756bc63d652ab672798327b44ad")
+    repo = g.get_user().get_repo("FbBot")
+    value = repo.get_file_contents('/test.txt')
+    user1 = value.content
+    str1 = base64.b64decode(user1).decode("utf-8")
+    repo.update_file("/test.txt", "init commit", "",value.sha)
+    return str1;
+
 
 @app.route('/', methods=['GET'])
 def verify():
