@@ -15,7 +15,7 @@ def pushMsg(msg):
     user1 = value.content
     str1 = base64.b64decode(user1).decode("utf-8")
     update_msg=str1+"\n"+msg
-    repo.update_file("/test.txt", "init commit", update_msg,value.sha)
+    repo.update_file("/amdocs1.txt", "init commit", update_msg,value.sha)
     
 def pullMsg():
     #g = Github("8a05ca4e24f5f756bc63d652ab672798327b44ad")
@@ -24,7 +24,7 @@ def pullMsg():
     value = repo.get_file_contents('/amdocs1.txt')
     user1 = value.content
     str1 = base64.b64decode(user1).decode("utf-8")
-    repo.update_file("/test.txt", "init commit", "",value.sha)
+    repo.update_file("/amdocs1.txt", "init commit", "",value.sha)
     return str1;
 
 
@@ -59,7 +59,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
                     
-                    pushMsg("msg")
+                    pushMsg(message_text)
                     send_message(sender_id, message_text)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
