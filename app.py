@@ -27,6 +27,8 @@ def pullMsg():
     repo.update_file("/amdocs1.txt", "init commit", "",value.sha)
     return str1;
 
+def splitData(data):
+    return data[:data.index('_')],data[data.index('_')+1:]
 
 @app.route('/', methods=['GET'])
 def verify():
@@ -38,6 +40,18 @@ def verify():
         return request.args["hub.challenge"], 200
 
     return "Hello world", 200
+
+
+@app.route('/data/<data>', methods=['GET'])
+def msgToUser(data):
+    user,msg = splitData(data)
+    send_message(user, msg)
+    
+@app.route('/check', methods=['GET'])
+def check():
+    return pullMsg()
+    #check for txt file data and return
+
 
 
 @app.route('/', methods=['POST'])
