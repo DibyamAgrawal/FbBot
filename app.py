@@ -9,7 +9,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 def pushMsg(msg):
-    g = Github("8a05ca4e24f5f756bc63d652ab672798327b44ad")
+    g = Github("7b2bf9400d5d2da539a1a697023aa141aa72447e")
     repo = g.get_user().get_repo("FbBot")
     value = repo.get_file_contents('/test.txt')
     user1 = value.content
@@ -18,7 +18,7 @@ def pushMsg(msg):
     repo.update_file("/test.txt", "init commit", update_msg,value.sha)
 
 def pullMsg():
-    g = Github("8a05ca4e24f5f756bc63d652ab672798327b44ad")
+    g = Github("7b2bf9400d5d2da539a1a697023aa141aa72447e")
     #g = Github("agrawaldips14@gmail.com", "deepikA@9")
     #repo = g.get_user().get_repo("resume")
     repo = g.get_user().get_repo("FbBot")
