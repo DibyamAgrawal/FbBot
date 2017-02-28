@@ -16,7 +16,7 @@ def pushMsg(msg):
     user1 = value.content
     str1 = base64.b64decode(user1).decode("utf-8")
     update_msg=str1+"\n"+msg
-    repo.update_file("/amdocs1.txt", "init commit", "",value.sha)
+    repo.update_file("/amdocs1.txt", "init commit", update_msg,value.sha)
     
 def pullMsg():
     g = Github("agrawaldips14@gmail.com", "deepikA@9")
