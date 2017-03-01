@@ -54,7 +54,7 @@ def verify():
 
 @app.route('/data/<data>', methods=['GET'])
 def msgToUser(data):
-    user,msg = splitData(data)
+    user, msg = splitData(data)
     send_message(user, msg)
 
     
