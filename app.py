@@ -61,7 +61,7 @@ def msgToUser(data):
     
 @app.route('/check/', methods=['GET'])
 def check():
-    return pullMsg()
+    return pullMsg1()
 
 @app.route('/policy/', methods=['GET'])
 def policy():
@@ -88,7 +88,7 @@ def webhook():
                     
                     #pushMsg(sender_id+"_"+message_text)
                     send_message(sender_id, message_text)
-                    pushMsg(sender_id,message_text)
+                    pushMsg1(sender_id+"_"+message_text)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
