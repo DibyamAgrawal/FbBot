@@ -8,18 +8,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-#https://apocrine-expert.000webhostapp.com/?query=push&user=dibyam&chat=hello
-#https://apocrine-expert.000webhostapp.com/?query=pull
-#
-
-def pushMsg(user,msg):
-    r = requests.get("https://apocrine-expert.000webhostapp.com/?query=push&user="+str(user)+"&chat="+msg)
-    
-def pullMsg():
-    r = requests.get("https://apocrine-expert.000webhostapp.com/?query=pull")
-    return r.text
-    
-def pushMsg1(msg):
+def pushMsg(msg):
     g = Github("agrawaldips14@gmail.com", "deepikA@9")
     repo = g.get_user().get_repo("resume")
     value = repo.get_file_contents('/amdocs1.txt')
@@ -28,7 +17,7 @@ def pushMsg1(msg):
     update_msg=str1+"\n"+msg
     repo.update_file("/amdocs1.txt", "init commit", update_msg,value.sha)
 
-def pullMsg1():
+def pullMsg():
     #g = Github("8a05ca4e24f5f756bc63d652ab672798327b44ad")
     g = Github("agrawaldips14@gmail.com", "deepikA@9")
     repo = g.get_user().get_repo("resume")
@@ -55,7 +44,7 @@ def verify():
 
 @app.route('/data/<data>', methods=['GET'])
 def msgToUser(data):
-    user, msg = splitData(data)
+    user,msg = splitData(data)
     send_message(user, msg)
 
     
@@ -83,8 +72,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
                     
-                    #pushMsg(sender_id+"_"+message_text)
-                    pushMsg(sender_id,message_text)
+                    pushMsg(sender_id+"_"+message_text)
                     send_message(sender_id, message_text)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
