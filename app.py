@@ -12,7 +12,7 @@ app = Flask(__name__)
 #https://apocrine-expert.000webhostapp.com/?query=pull
 
 def pushMsg(user,msg):
-    r = requests.get("https://apocrine-expert.000webhostapp.com/?query=push&user="+user+"&chat="+msg)
+    r = requests.get("https://apocrine-expert.000webhostapp.com/?query=push&user="+str(user)+"&chat="+msg)
     
 def pullMsg():
     r = requests.get("https://apocrine-expert.000webhostapp.com/?query=pull)
