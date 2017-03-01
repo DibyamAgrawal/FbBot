@@ -62,7 +62,10 @@ def msgToUser(data):
 @app.route('/check/', methods=['GET'])
 def check():
     return pullMsg()
-    
+
+@app.route('/check/', methods=['GET'])
+def check():
+    return "None of the user data will be miss used. All the chats are only stored to provide user a better experience."
     
 @app.route('/', methods=['POST'])
 def webhook():
